@@ -3,11 +3,10 @@
 # Time: 10min
 #----------------------------------------
 
-# TODO 1: Spin up 1 EC2 instance
+# TODO 1: Spin up 2 EC2 instance
 #----------------------------------------
 
-cd ~/create-aws-node-terraform
-
+terraform init
 terraform plan
 terraform apply
 
@@ -29,7 +28,7 @@ sudo su -c 'echo -e "[webservers]\n<ENTER PUBLIC DNS>" >> /etc/ansible/hosts'
 
 # TODO 4: Verify Connection to machine
 #----------------------------------------
-ansible -m ping webservers --user ubuntu --key-file ~/.ssh/student.pem
+ansible -i ~/hosts -m ping webservers --user ubuntu --key-file ~/.ssh/student.pem
 
 # TODO 5: Write Ansible Scipt on student machine
 #----------------------------------------
@@ -61,7 +60,7 @@ EOF
 # TODO 6: Run Ansible Script on student machine
 #----------------------------------------
 
-ansible-playbook install_webserver.yml --user ubuntu --key-file ~/.ssh/student.pem
+ansible-playbook -i ~/hosts install_webserver.yml --user ubuntu --key-file ~/.ssh/student.pem
 
 # TODO 7: Verify webserver running
 #----------------------------------------
